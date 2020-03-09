@@ -1,5 +1,6 @@
 #include "../include/StateIni.h"
 #include "../include/StateIdle.h"
+#include "../include/StateEmergency.h"
 #include <iostream>
 
 StateIni::StateIni(HighLevelDriver& context):context(context)
@@ -14,14 +15,18 @@ StateIni::~StateIni()
 
 void StateIni::handleEvent(Event& event)
 {
-    std::shared_ptr<State> idle = std::make_shared<StateIdle>(context);
-    switch (event.id)
+   
+    switch (event.getEventType())
     {
-    case 1:
-          context.setCurrentState(idle);
-        break;
+     case EVENT_INI_DONE:
+       { std::shared_ptr<State> ptr = std::make_shared<StateIdle>(context);
+        context.setCurrentState(ptr);
+       }break;
     
     default:
+    { std::shared_ptr<State> ptr = std::make_shared<StateEmergency>(context);
+        context.setCurrentState(ptr);
+       }
         break;
     }
     
@@ -29,15 +34,15 @@ void StateIni::handleEvent(Event& event)
 void StateIni::entry()
 {
     std::cout << "Entry Ini" << std::endl;
+      Event a(EVENT_INI_DONE);
+    context.addEvent(a);
 }
 
 bool StateIni::doActivity()
 {
     std::cout << "do Ini" << std::endl;
     
-    Event a;
-    a.id=1;
-    handleEvent(a);
+  
     return false;
 }
 

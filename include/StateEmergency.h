@@ -5,7 +5,7 @@
 #include "State.h"
 #include "HighLevelDriver.h"
 
-class StateEmergency : State
+class StateEmergency : public State
 {
 private:
     /* data */
@@ -17,7 +17,7 @@ public:
     bool doActivity();
     void exit();
     void handleEvent(Event& event);
-    StateEmergency(/* args */);
+    StateEmergency(HighLevelDriver& context);
     ~StateEmergency();
 };
 #endif /* STATE_EMERGENCY */

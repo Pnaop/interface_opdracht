@@ -57,11 +57,11 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate services in the 'srv' folder
- #add_service_files(
-  # FILES
-   # emergency.srv
+add_service_files(
+ FILES
+  emergency.srv
 #   Service2.srv
- #)
+)
 
 ## Generate actions in the 'action' folder
 add_action_files(
@@ -130,7 +130,7 @@ include_directories(
 add_library(RobotLD
     src/RobotLD.cpp
 )
-add_executable(robot_interface src/main.cpp src/HighLevelDriver.cpp src/Axis.cpp  src/StateIdle.cpp src/StateIni.cpp src/StateMove.cpp)
+add_executable(robot_interface src/main.cpp src/HighLevelDriver.cpp src/Axis.cpp src/Event.cpp src/StateIdle.cpp src/StateIni.cpp src/StateMove.cpp src/StateEmergency.cpp)
 
 
 add_dependencies(RobotLD interface_opdracht_generate_messages_cpp)
