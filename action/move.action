@@ -1,0 +1,11 @@
+#goal definition
+uint8 modeType
+uint16[] axis
+float32[] move_to
+uint64 time
+---
+#result definition
+uint32[] sequence
+---
+#feedback
+uint32[] sequence
