@@ -18,4 +18,4 @@ public:
     StateMove(HighLevelDriver& context);
     ~StateMove();
 };
-#endif
+#endif /* STATEMOVE_H */

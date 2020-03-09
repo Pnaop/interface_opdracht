@@ -1,7 +1,10 @@
 #ifndef STATE_H
 #define STATE_H
+
 #include "Event.h"
+
 class Context;
+
 class State
 {
 public:
@@ -14,4 +17,4 @@ protected:
    virtual ~State(){}
 };
 
-#endif
+#endif /* STATE_H */

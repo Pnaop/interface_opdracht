@@ -4,6 +4,7 @@
 
 #include "State.h"
 #include "HighLevelDriver.h"
+
 class StateEmergency : State
 {
 private:
@@ -19,4 +20,4 @@ public:
     StateEmergency(/* args */);
     ~StateEmergency();
 };
-#endif
+#endif /* STATE_EMERGENCY */

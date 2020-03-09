@@ -2,19 +2,22 @@
 
 #ifndef CONTEXT_H
 #define CONTEXT_H
+
 #include <memory>
 #include <vector>
+
 class Context
 {
-
 protected:
-std::vector<Event> events;
- Context(/* args */){};
- virtual ~Context(){};
-std::shared_ptr<State> currentState;
+    Context(/* args */){};
+    virtual ~Context(){};
+    std::vector<Event> events;
+    std::shared_ptr<State> currentState;
+
 public:
+    virtual void setCurrentState(std::shared_ptr<State>& nState)=0;
 
   
 };
 
-#endif
+#endif /* CONTEXT_H */

@@ -3,7 +3,7 @@
 #define EVENT_H
 class Event
 {
-    public:
+public:
     int id;
 };
-#endif
+#endif  /* EVENT_H */

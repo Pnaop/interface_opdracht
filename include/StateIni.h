@@ -16,4 +16,4 @@ public:
     StateIni(HighLevelDriver& context);
     ~StateIni();
 };
-#endif
+#endif /* STATEINI_H */

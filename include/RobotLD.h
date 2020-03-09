@@ -1,12 +1,10 @@
 #ifndef ROBOTLD_H
 #define ROBOTLD_H
+
 #include "Axis.h"
 #include <vector>
 #include <boost/asio.hpp>
-#include <InterfaceOpdracht/moveAction.h>
-
-
-
+#include <interface_opdracht/moveAction.h>
 
 class RobotLD
 {
@@ -16,7 +14,7 @@ RobotLD();
 ~RobotLD();
 float getGoalAxis(uint32_t id);
 void sendStopCommand();
-bool sendCommand(const InterfaceOpdracht::moveGoal& goal);
+bool sendCommand(const interface_opdracht::moveGoal& goal);
 std::vector<Axis>& getAxis();
 protected:
 

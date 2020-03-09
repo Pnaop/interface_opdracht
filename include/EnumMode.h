@@ -10,4 +10,4 @@ enum MODES{
 };
 
 
-#endif
+#endif /* ENUMMODES_H */

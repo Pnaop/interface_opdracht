@@ -1,6 +1,7 @@
 #include "../include/StateIdle.h"
 
 #include<iostream>
+
 StateIdle::StateIdle(HighLevelDriver& context):context(context)
 {
 
@@ -9,6 +10,7 @@ StateIdle::~StateIdle()
 {
 
 }
+
 void StateIdle::handleEvent(Event& event)
 {
     //std::shared_ptr<State> ptr = std::make_shared<State>();
@@ -22,10 +24,12 @@ void StateIdle::handleEvent(Event& event)
     }
     
 }
+
 void StateIdle::entry()
 {
     std::cout << "Entry Idle" << std::endl;
 }
+
 bool StateIdle::doActivity()
 {
     std::cout << "do Idle" << std::endl;
@@ -33,6 +37,7 @@ bool StateIdle::doActivity()
     a.id=1;
     return false;
 }
+
 void StateIdle::exit()
 {
     std::cout << "exit Idle" << std::endl;

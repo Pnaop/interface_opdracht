@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(InterfaceOpdracht)
+project(interface_opdracht)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++14)
@@ -133,20 +133,20 @@ add_library(RobotLD
 add_executable(robot_interface src/main.cpp src/HighLevelDriver.cpp src/Axis.cpp  src/StateIdle.cpp src/StateIni.cpp src/StateMove.cpp)
 
 
-add_dependencies(RobotLD InterfaceOpdracht_generate_messages_cpp)
+add_dependencies(RobotLD interface_opdracht_generate_messages_cpp)
 
 
 
 add_dependencies( 
  robot_interface
- ${InterfaceOpdracht_EXPORTED_TARGETS}
+ ${interface_opdracht_EXPORTED_TARGETS}
 )
 target_link_libraries(
   robot_interface
   ${catkin_LIBRARIES}
   RobotLD
 )
-add_dependencies(robot_interface InterfaceOpdracht_generate_messages_cpp)
+add_dependencies(robot_interface interface_opdracht_generate_messages_cpp)
 
 
 

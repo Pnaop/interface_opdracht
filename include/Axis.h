@@ -1,13 +1,14 @@
 #ifndef AXIS_H
 #define AXIS_H
+
 #include <cstdint>
 #include "EnumAxis.h"
+
 class Axis
 {
     public:
     Axis(AXIS id,float minDegrees,float maxDegrees,float offset , float goal,float step,bool special);
     
-
     /// get functies
     AXIS getId();
     float getMinDegrees();
@@ -36,4 +37,4 @@ class Axis
     // has a special middlepoint
     bool special;
 };
-#endif
+#endif /* AXIS_H */

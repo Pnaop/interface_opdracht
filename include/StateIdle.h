@@ -17,4 +17,4 @@ public:
     StateIdle(HighLevelDriver& context);
     ~StateIdle();
 };
-#endif
+#endif /* STATEIDLE_H */
