@@ -36,8 +36,6 @@ void StateIdle::handleEvent(Event& event)
 void StateIdle::entry()
 {
     std::cout << "Entry Idle" << std::endl;
-    Event e(EVENT_NEW_GOAL);
-    context.addEvent(e);
 }
 
 bool StateIdle::doActivity()

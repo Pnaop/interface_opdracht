@@ -14,7 +14,6 @@ StateMove::~StateMove()
 
 void StateMove::handleEvent(Event& event)
 {
-   std::cout << "YES IN DE GOEDE" << std::endl;
     switch (event.getEventType())
     {
         case EVENT_NEW_GOAL:
@@ -32,7 +31,6 @@ void StateMove::handleEvent(Event& event)
         case EVENT_EMERGENCY:
         default:
         {   
-            std::cout << "YES EMERGENCY" << std::endl;
             std::shared_ptr<StateEmergency> ptr = std::make_shared<StateEmergency>(context);
             context.setCurrentState(ptr);
  
@@ -49,7 +47,7 @@ void StateMove::entry()
 
 bool StateMove::doActivity()
 {
-    std::cout << "exit Move" << std::endl;
+    std::cout << "do Move" << std::endl;
 
     return true;
 }
