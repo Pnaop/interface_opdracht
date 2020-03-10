@@ -14,7 +14,7 @@ public:
     bool doActivity();
     void exit();
     void handleEvent(Event& event);
-    StateIdle(HighLevelDriver& context);
+   explicit  StateIdle(HighLevelDriver& context);
     ~StateIdle();
 };
 #endif /* STATEIDLE_H */

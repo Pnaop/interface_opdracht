@@ -13,7 +13,7 @@ public:
     bool doActivity();
     void exit();
     void handleEvent(Event& event);
-    StateIni(HighLevelDriver& context);
+   explicit  StateIni(HighLevelDriver& context);
     ~StateIni();
 };
 #endif /* STATEINI_H */

@@ -1,11 +1,9 @@
-#include "State.h"
-
 #ifndef CONTEXT_H
 #define CONTEXT_H
 
 #include <memory>
 #include <vector>
-
+#include "State.h"
 class Context
 {
 protected:
@@ -15,7 +13,7 @@ protected:
     std::shared_ptr<State> currentState;
 
 public:
-    virtual void setCurrentState(std::shared_ptr<State> nState)=0;
+    virtual void setCurrentState(const std::shared_ptr<State>& nState)=0;
 
   
 };

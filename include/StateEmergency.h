@@ -1,4 +1,3 @@
-
 #ifndef STATE_EMERGENCY_H
 #define STATE_EMERGENCY_H
 
@@ -17,7 +16,7 @@ public:
     bool doActivity();
     void exit();
     void handleEvent(Event& event);
-    StateEmergency(HighLevelDriver& context);
+   explicit StateEmergency(HighLevelDriver& context);
     ~StateEmergency();
 };
 #endif /* STATE_EMERGENCY */

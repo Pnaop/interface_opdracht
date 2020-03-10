@@ -14,7 +14,7 @@ HighLevelDriver::~HighLevelDriver()
 {
 }
 
-void HighLevelDriver::setCurrentState(std::shared_ptr<State> nState)
+void HighLevelDriver::setCurrentState(const std::shared_ptr<State>& nState)
 {
     if(currentState)
     {

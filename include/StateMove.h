@@ -15,7 +15,7 @@ public:
     bool doActivity();
     void exit();
     void handleEvent(Event& event);
-    StateMove(HighLevelDriver& context);
+   explicit  StateMove(HighLevelDriver& context);
     ~StateMove();
 };
 #endif /* STATEMOVE_H */

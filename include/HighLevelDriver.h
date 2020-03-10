@@ -19,7 +19,7 @@ private:
   interface_opdracht::moveResult result_;
   ros::ServiceServer server_service;
 public:
-    HighLevelDriver(std::string& rosNodeName);
+    explicit HighLevelDriver(std::string& rosNodeName);
     ~HighLevelDriver();
     void getCurrentGoal();
     interface_opdracht::moveFeedback getFeedback();
@@ -28,7 +28,7 @@ public:
     void setResult();
     bool emergency(interface_opdracht::emergency::Request &reg , interface_opdracht::emergency::Response &res);
     void executeCB(const interface_opdracht::moveGoalConstPtr &goal);
-    void setCurrentState(std::shared_ptr<State> nState);
+    void setCurrentState(const std::shared_ptr<State>& nState);
     void addEvent(Event& event);
     void run();
 };
