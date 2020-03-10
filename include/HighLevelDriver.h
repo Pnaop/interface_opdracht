@@ -21,11 +21,10 @@ private:
 public:
     explicit HighLevelDriver(std::string& rosNodeName);
     ~HighLevelDriver();
-    void getCurrentGoal();
-    interface_opdracht::moveFeedback getFeedback();
-    void setFeedback();
-    interface_opdracht::moveResult getResult();
-    void setResult();
+    interface_opdracht::moveGoal& getCurrentGoal();
+    interface_opdracht::moveFeedback& getFeedback();
+    interface_opdracht::moveResult& getResult();
+    actionlib::SimpleActionServer<interface_opdracht::moveAction>& getActionServer();
     bool emergency(interface_opdracht::emergency::Request &reg , interface_opdracht::emergency::Response &res);
     void executeCB(const interface_opdracht::moveGoalConstPtr &goal);
     void setCurrentState(const std::shared_ptr<State>& nState);

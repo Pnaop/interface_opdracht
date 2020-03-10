@@ -3,11 +3,15 @@
 
 StateEmergency::StateEmergency(HighLevelDriver& context):context(context)
 {
-
+    id = STATES::EMERGENCY;
 }
 StateEmergency::~StateEmergency()
 {
 
+}
+STATES StateEmergency::getStateId()
+{
+      return id;
 }
 
 void StateEmergency::handleEvent(Event& event)
@@ -16,7 +20,15 @@ void StateEmergency::handleEvent(Event& event)
 
 void StateEmergency::entry()
 {
-    std::cout << "Entry Emergency" << std::endl;
+    actionlib::SimpleActionServer<interface_opdracht::moveAction>& as_ = this->context.getActionServer();
+    interface_opdracht::moveResult& result_ = this->context.getResult();
+    if (as_.isActive())
+    {
+      result_.sequence.push_back(0);
+      as_.setAborted(result_);
+    }
+    ROS_INFO("{STATE : EMERGENCY}");
+
 }
 
 bool StateEmergency::doActivity()

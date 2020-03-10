@@ -132,6 +132,7 @@ add_library(RobotLD
 )
 add_executable(robot_interface src/main.cpp src/HighLevelDriver.cpp src/Axis.cpp src/Event.cpp src/StateIdle.cpp src/StateIni.cpp src/StateMove.cpp src/StateEmergency.cpp)
 
+add_executable(robot_interface_client src/robot_client.cpp src/Axis.cpp )
 
 add_dependencies(RobotLD interface_opdracht_generate_messages_cpp)
 
@@ -148,7 +149,15 @@ target_link_libraries(
 )
 add_dependencies(robot_interface interface_opdracht_generate_messages_cpp)
 
-
+add_dependencies( 
+ robot_interface_client
+ ${interface_opdracht_EXPORTED_TARGETS}
+)
+target_link_libraries(
+  robot_interface_client
+  ${catkin_LIBRARIES}
+)
+add_dependencies(robot_interface_client interface_opdracht_generate_messages_cpp)
 
 
 

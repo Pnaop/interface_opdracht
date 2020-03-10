@@ -5,11 +5,15 @@
 
 StateIdle::StateIdle(HighLevelDriver& context):context(context)
 {
-
+    id = STATES::IDLE;
 }
 StateIdle::~StateIdle()
 {
 
+}
+STATES StateIdle::getStateId()
+{
+      return id;
 }
 
 void StateIdle::handleEvent(Event& event)
@@ -40,8 +44,6 @@ void StateIdle::entry()
 
 bool StateIdle::doActivity()
 {
-    std::cout << "do Idle" << std::endl;
-
     return false;
 }
 

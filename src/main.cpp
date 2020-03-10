@@ -8,7 +8,7 @@
 int main(int argc, char *argv[])
 {
     ros::init(argc,argv,"robotNode");
-    std::string rosNodeName = "RosNodeRobot";
+    std::string rosNodeName = "move_arm";
     HighLevelDriver HLD(rosNodeName);
     HLD.run();
     return 0;
