@@ -5,11 +5,11 @@
  */
 
 #include "../include/HighLevelDriver.h"
-
 int main(int argc, char *argv[])
 {
-    HighLevelDriver HLD;
-   
+    ros::init(argc,argv,"robotNode");
+    std::string rosNodeName = "RosNodeRobot";
+    HighLevelDriver HLD(rosNodeName);
     HLD.run();
     return 0;
 }

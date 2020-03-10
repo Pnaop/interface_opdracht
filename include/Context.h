@@ -15,7 +15,7 @@ protected:
     std::shared_ptr<State> currentState;
 
 public:
-    virtual void setCurrentState(std::shared_ptr<State>& nState)=0;
+    virtual void setCurrentState(std::shared_ptr<State> nState)=0;
 
   
 };
