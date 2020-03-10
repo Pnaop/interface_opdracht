@@ -5,12 +5,16 @@
 
 StateIni::StateIni(HighLevelDriver& context):context(context)
 {
-
+    id = STATES::INI;
 }
 
 StateIni::~StateIni()
 {
-
+    
+}
+STATES StateIni::getStateId()
+{
+      return id;
 }
 
 void StateIni::handleEvent(Event& event)
@@ -41,8 +45,6 @@ void StateIni::entry()
 bool StateIni::doActivity()
 {
     std::cout << "do Ini" << std::endl;
-    
-  
     return false;
 }
 
