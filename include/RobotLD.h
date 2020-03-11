@@ -6,35 +6,37 @@
 #include <boost/asio.hpp>
 #include <interface_opdracht/moveAction.h>
 
+/**
+ * @class RobotLD
+ * @brief The LowLevelDriver that communicates with the robotarm.
+ * 
+ * Responisble for serial connection with hardware and safety checks.
+ */
 class RobotLD
 {
-
 public:
-RobotLD();
-~RobotLD();
-float getGoalAxis(uint32_t id);
-void sendStopCommand();
-bool sendCommand(const interface_opdracht::moveGoal& goal);
-std::vector<Axis>& getAxis();
+  RobotLD();
+  ~RobotLD();
+  float getGoalAxis(uint32_t id);
+  void sendStopCommand();
+  bool sendCommand(const interface_opdracht::moveGoal& goal);
+  std::vector<Axis>& getAxis();
 
-bool checkMoveValid(uint8_t id, float position, uint64_t time);
+  bool checkMoveValid(uint8_t id, float position, uint64_t time);
 protected:
 
 private:
-  /// USB CONNECTIE
-
+  /// USB CONNECTION
   boost::asio::io_service ioservice;
- //   boost::asio::serial_port serial;
+  //   boost::asio::serial_port serial;
   uint32_t BAUD;
 
-
-
-void setOffset();
-float convertDegrees(float degrees,Axis& ax);
-uint64_t convertTime(uint64_t milliseconds);
-std::vector<Axis> axis;
-void sendSerial(std::string& text);
-const uint16_t CONVERTTIMERATIO = 1;
+  void setOffset();
+  float convertDegrees(float degrees,Axis& ax);
+  uint64_t convertTime(uint64_t milliseconds);
+  std::vector<Axis> axis;
+  void sendSerial(std::string& text);
+  const uint16_t CONVERTTIMERATIO = 1;
 };
 
 

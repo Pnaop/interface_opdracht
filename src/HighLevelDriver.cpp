@@ -8,10 +8,14 @@
 
 HighLevelDriver::HighLevelDriver(std::string& rosNodeName):as_(nh_,"move_arm", boost::bind(&HighLevelDriver::executeCB,this, _1),false)
 {
-    as_.start();
-    std::shared_ptr<State> tempS = std::make_shared<StateIni>(*this);
-    this->server_service = nh_.advertiseService("emergency", &HighLevelDriver::emergency, this);
-    setCurrentState(tempS);
+  /// Start the actionserver.
+  as_.start();
+  /// Initialise pointer for statemachine.
+  std::shared_ptr<State> tempS = std::make_shared<StateIni>(*this);
+  // Set up the service to call the emergency stop.
+  this->server_service = nh_.advertiseService("emergency", &HighLevelDriver::emergency, this);
+  /// Set the state to Initialise.
+  setCurrentState(tempS);
 }
 
 HighLevelDriver::~HighLevelDriver()
@@ -20,48 +24,53 @@ HighLevelDriver::~HighLevelDriver()
 
 void HighLevelDriver::setCurrentState(const std::shared_ptr<State>& nState)
 {
-    if(currentState)
-    {
-        currentState->exit();
-    }
-    currentState = nState;
-    currentState->entry();
+  /// Exit the currentState en transition to new state.
+  if(currentState)
+  {
+    currentState->exit();
+  }
+  currentState = nState;
+  currentState->entry();
 }
+
 RobotLD& HighLevelDriver::getArm()
 {
     return arm;
 }
+
 void HighLevelDriver::parseCurrentGoal(const interface_opdracht::moveGoalConstPtr &goal)
 {
-    switch (goal->modeType)
+  /// Call the correct function for the selected mode.
+  switch (goal->modeType)
+  {
+  case FREEMODE:
+    if (validateGoal(goal))
     {
-    case FREEMODE:
-      if (validateGoal(goal))
-      {
-        currentGoal = *goal;
-      }
-      else
-      {
-          /*invalid goal*/
-          Event e(EVENT_EMERGENCY);
-          addEvent(e);
-      }
-      break;
-    case PROGRAM_UP:
-      currentGoal = this->moveToUp();
-      break;
-    case PROGRAM_READY:
-      currentGoal = this->moveToReady();
-      break;
-    case PROGRAM_PARK:
-      currentGoal = this->moveToPark();
-      break;
-    default:
-      currentGoal = this->moveToReady();
-      break;
+      currentGoal = *goal;
     }
-    currentGoal.time = goal->time;
+    else
+    {
+        /*invalid goal*/
+        Event e(EVENT_EMERGENCY);
+        addEvent(e);
+    }
+    break;
+  case PROGRAM_UP:
+    currentGoal = this->moveToUp();
+    break;
+  case PROGRAM_READY:
+    currentGoal = this->moveToReady();
+    break;
+  case PROGRAM_PARK:
+    currentGoal = this->moveToPark();
+    break;
+  default:
+    currentGoal = this->moveToReady();
+    break;
+  }
+  currentGoal.time = goal->time;
 }
+
 interface_opdracht::moveGoal HighLevelDriver::moveToReady()
 {
   interface_opdracht::moveGoal tempGoal;
@@ -117,13 +126,17 @@ interface_opdracht::moveGoal HighLevelDriver::moveToUp()
 
 bool HighLevelDriver::validateGoal(const interface_opdracht::moveGoalConstPtr &goal)
 {
+  /// If the boolean is still true after the test, the goal is valid.
   bool result = true;
 
+  /// Loop over all selected axes.
   for(uint8_t i = 0; i < goal->axis.size(); ++i)
   {
+    /// Check if the goal for each axis is valid.
     result = arm.checkMoveValid(goal->axis[int(i)], goal->move_to[goal->axis[i]], goal->time);
   } 
 
+  /// True when all goals are valid.
   return result;
 }
 
@@ -131,10 +144,12 @@ void HighLevelDriver::addEvent(Event& a)
 {
     this->events.push_back(a);
 }
+
 interface_opdracht::moveFeedback& HighLevelDriver::getFeedback()
 {
     return this->feedback_;
 }
+
 interface_opdracht::moveResult& HighLevelDriver::getResult()
 {
     return this->result_;
@@ -144,6 +159,7 @@ interface_opdracht::moveGoal& HighLevelDriver::getCurrentGoal()
 {
     return currentGoal;
 }
+
 void HighLevelDriver::executeCB(const interface_opdracht::moveGoalConstPtr &goal)
 {
   parseCurrentGoal(goal);
@@ -168,19 +184,21 @@ bool HighLevelDriver::emergency(interface_opdracht::emergency::Request &reg, int
 
   return true;
 }
+
 void HighLevelDriver::run()
 {  
-       while(ros::ok())
-       {
-            if(!events.empty())
-            {
-                currentState->handleEvent(events[0]);
-                events.erase(events.begin());
-            }
-            else
-            {
-              currentState->doActivity();
-            }
-           ros::spinOnce();
-        }
+  while(ros::ok())
+  {
+    if(!events.empty())
+    {
+      currentState->handleEvent(events[0]);
+      events.erase(events.begin());
+    }
+    else
+    {
+      currentState->doActivity();
+    }
+    
+    ros::spinOnce();
+  }
 }
