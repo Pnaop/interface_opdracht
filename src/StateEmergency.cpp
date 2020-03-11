@@ -20,6 +20,7 @@ void StateEmergency::handleEvent(Event& event)
 
 void StateEmergency::entry()
 {
+    this->context.getArm().sendStopCommand();
     actionlib::SimpleActionServer<interface_opdracht::moveAction>& as_ = this->context.getActionServer();
     interface_opdracht::moveResult& result_ = this->context.getResult();
     if (as_.isActive())
@@ -33,7 +34,6 @@ void StateEmergency::entry()
 
 bool StateEmergency::doActivity()
 {
-    std::cout << "do  Emergency" << std::endl;
     return false;
 }
 

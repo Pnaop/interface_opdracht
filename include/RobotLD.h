@@ -20,8 +20,9 @@ protected:
 
 private:
   /// USB CONNECTIE
-    boost::asio::serial_port serial;
+
   boost::asio::io_service ioservice;
+ //   boost::asio::serial_port serial;
   uint32_t BAUD;
 
 

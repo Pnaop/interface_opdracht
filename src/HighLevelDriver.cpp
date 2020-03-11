@@ -1,5 +1,6 @@
 #include "../include/HighLevelDriver.h"
 #include "../include/Context.h"
+#include "../include/EnumMode.h"
 #include "../include/StateIni.h"
 #include "ros/ros.h"
 #include <chrono>
@@ -26,7 +27,97 @@ void HighLevelDriver::setCurrentState(const std::shared_ptr<State>& nState)
     currentState = nState;
     currentState->entry();
 }
+RobotLD& HighLevelDriver::getArm()
+{
+    return arm;
+}
+void HighLevelDriver::parseCurrentGoal(const interface_opdracht::moveGoalConstPtr &goal)
+{
+    switch (goal->modeType)
+    {
+    case FREEMODE:
+      if (validateGoal(goal))
+      {
+        currentGoal = *goal;
+      }
+      else
+      {
+          /*invalid goal*/
+          Event e(EVENT_EMERGENCY);
+          addEvent(e);
+      }
+      break;
+    case PROGRAM_UP:
+      currentGoal = this->moveToUp();
+      break;
+    case PROGRAM_READY:
+      currentGoal = this->moveToReady();
+      break;
+    case PROGRAM_PARK:
+      currentGoal = this->moveToPark();
+      break;
+    default:
+      currentGoal = this->moveToReady();
+      break;
+    }
+    currentGoal.time = goal->time;
+}
+interface_opdracht::moveGoal HighLevelDriver::moveToReady()
+{
+  interface_opdracht::moveGoal tempGoal;
+  tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::BASE_ROTATION)));
+  tempGoal.move_to.push_back(0);
+  tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::SHOULDER)));
+  tempGoal.move_to.push_back(27);
+  tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::ELBOW)));
+  tempGoal.move_to.push_back(99);
+  tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::WRIST)));
+  tempGoal.move_to.push_back(-14);
+  tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::WRIST_ROTATION)));
+  tempGoal.move_to.push_back(0);
+  tempGoal.time = 0;
+  return tempGoal;
+}
 
+interface_opdracht::moveGoal HighLevelDriver::moveToPark()
+{
+  interface_opdracht::moveGoal tempGoal;
+
+  tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::BASE_ROTATION)));
+  tempGoal.move_to.push_back(0);
+  tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::SHOULDER)));
+  tempGoal.move_to.push_back(50);
+  tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::ELBOW)));
+  tempGoal.move_to.push_back(138);
+  tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::WRIST)));
+  tempGoal.move_to.push_back(-90);
+  tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::WRIST_ROTATION)));
+  tempGoal.move_to.push_back(0);
+  tempGoal.time = 0;
+  return tempGoal;
+}
+
+interface_opdracht::moveGoal HighLevelDriver::moveToUp()
+{
+  interface_opdracht::moveGoal tempGoal;
+
+  tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::BASE_ROTATION)));
+  tempGoal.move_to.push_back(0);
+  tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::SHOULDER)));
+  tempGoal.move_to.push_back(2);
+  tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::ELBOW)));
+  tempGoal.move_to.push_back(15);
+  tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::WRIST)));
+  tempGoal.move_to.push_back(0);
+  tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::WRIST_ROTATION)));
+  tempGoal.move_to.push_back(0);
+  tempGoal.time = 0;
+  return tempGoal;
+}
+   bool HighLevelDriver::validateGoal(const interface_opdracht::moveGoalConstPtr &goal)
+   {
+       return true;
+   }
 void HighLevelDriver::addEvent(Event& a)
 {
     this->events.push_back(a);
@@ -46,14 +137,10 @@ interface_opdracht::moveGoal& HighLevelDriver::getCurrentGoal()
 }
 void HighLevelDriver::executeCB(const interface_opdracht::moveGoalConstPtr &goal)
 {
-      // if(true) /// validate goal(
-        //{
-            
-             this->currentGoal = *goal;
-             Event ev(EVENT_NEW_GOAL);
-             addEvent(ev);
-            while (as_.isActive()){};
-        //}
+    parseCurrentGoal(goal);
+    Event ev(EVENT_NEW_GOAL);
+    addEvent(ev);
+    while (as_.isActive()){};
 }
 actionlib::SimpleActionServer<interface_opdracht::moveAction>& HighLevelDriver::getActionServer()
 {
