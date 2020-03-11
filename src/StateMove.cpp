@@ -40,7 +40,7 @@ void StateMove::handleEvent(Event& event)
 
 void StateMove::entry()
 {
-    std::cout << "entry Move" << std::endl;
+    ROS_INFO("STATE: MOVE");
     start = std::chrono::high_resolution_clock::now();
     context.getArm().sendCommand(this->context.getCurrentGoal());
 }

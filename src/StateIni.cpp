@@ -37,8 +37,13 @@ void StateIni::handleEvent(Event& event)
 }
 void StateIni::entry()
 {
-    std::cout << "Entry Ini" << std::endl;
-      Event a(EVENT_INI_DONE);
+    ROS_INFO("STATE: INI");
+    interface_opdracht::moveGoal goal = this->context.moveToPark();
+    goal.time = 1;
+        
+    this->context.getArm().sendCommand(goal);
+
+    Event a(EVENT_INI_DONE);
     context.addEvent(a);
 }
 

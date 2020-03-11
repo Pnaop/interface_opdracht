@@ -39,7 +39,7 @@ void StateIdle::handleEvent(Event& event)
 
 void StateIdle::entry()
 {
-    std::cout << "Entry Idle" << std::endl;
+    ROS_INFO("STATE: IDLE");
 }
 
 bool StateIdle::doActivity()

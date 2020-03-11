@@ -52,6 +52,7 @@ float RobotLD::convertDegrees(float degrees, Axis& ax)
             output += SPECIALZEROPOINT;
         }
     }
+    output = round(output);
     return output;
 }
 
@@ -92,13 +93,12 @@ void RobotLD::setOffset()
 bool RobotLD::sendCommand(const interface_opdracht::moveGoal &goal)
 {
     std::string command = "";
-
     for (uint32_t index = 0; index < goal.axis.size(); ++index)
     {
         float convertedDegr = convertDegrees(goal.move_to[index], this->axis[goal.axis[index]]);
-
         if (convertedDegr < 0)
         {
+
             return false;
         }
 
@@ -106,8 +106,8 @@ bool RobotLD::sendCommand(const interface_opdracht::moveGoal &goal)
         this->axis[goal.axis[index]].setGoal(goal.move_to[index]);
         command += " P" + std::to_string(uint32_t(std::ceil(convertedDegr)));
     }
-
     command += " T" + std::to_string(convertTime(goal.time));
+
     sendSerial(command);
 
     return true;

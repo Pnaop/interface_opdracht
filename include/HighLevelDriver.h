@@ -19,7 +19,6 @@ private:
   interface_opdracht::moveFeedback feedback_;
   interface_opdracht::moveResult result_;
   ros::ServiceServer server_service;
-  interface_opdracht::moveGoal moveToPark();
   interface_opdracht::moveGoal moveToReady();
   interface_opdracht::moveGoal moveToUp();
   RobotLD arm; 
@@ -31,6 +30,7 @@ public:
     RobotLD& getArm(); 
     interface_opdracht::moveResult& getResult();
     actionlib::SimpleActionServer<interface_opdracht::moveAction>& getActionServer();
+    interface_opdracht::moveGoal moveToPark();
     void parseCurrentGoal(const interface_opdracht::moveGoalConstPtr &goal);
     bool validateGoal(const interface_opdracht::moveGoalConstPtr &goal);
     bool emergency(interface_opdracht::emergency::Request &reg , interface_opdracht::emergency::Response &res);
