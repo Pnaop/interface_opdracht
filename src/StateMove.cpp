@@ -42,6 +42,7 @@ void StateMove::entry()
 {
     std::cout << "entry Move" << std::endl;
     start = std::chrono::high_resolution_clock::now();
+    context.getArm().sendCommand(this->context.getCurrentGoal());
 }
 
 bool StateMove::doActivity()
@@ -51,9 +52,10 @@ bool StateMove::doActivity()
     interface_opdracht::moveFeedback& feedback_ = context.getFeedback();
      if(as_.isPreemptRequested() || !ros::ok())
      {
+       context.getArm().sendStopCommand();
        feedback_.sequence.clear();         
        as_.setPreempted();
-       Event e(EVENT_GOAL_DONE);
+       Event e(EVENT_NEW_GOAL);
        context.addEvent(e);
      
      }
