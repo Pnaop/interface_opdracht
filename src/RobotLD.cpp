@@ -1,4 +1,5 @@
 #include <thread>
+#include <ros/ros.h>
 #include "../include/RobotLD.h"
 #include "../include/RobotLDOffset.h"
 
@@ -155,9 +156,13 @@ bool RobotLD::checkMoveValid(uint8_t id, float position, uint64_t time)
   // Calculate the distance of the movement.
   float movement = fabs(position - a.getGoal());
 
+  // Calculate the fastest time that the movement would take.
+  float minimumDuration = (movement / 60) * a.getMaxSpeed();
+
   // Predict if the time is physically possible.
-  if((movement / 60) * a.getMaxSpeed() > time)
+  if(minimumDuration > time)
   {
+      ROS_INFO("QoS­Warning: requested time not achievable, expected duration: %s ms", std::to_string(int(minimumDuration)).c_str());
       result = false;
   }
 

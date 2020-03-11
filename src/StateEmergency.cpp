@@ -28,7 +28,7 @@ void StateEmergency::entry()
       result_.sequence.push_back(0);
       as_.setAborted(result_);
     }
-    ROS_INFO("{STATE : EMERGENCY}");
+    ROS_INFO("STATE : EMERGENCY");
 
 }
 
