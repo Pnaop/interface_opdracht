@@ -16,6 +16,8 @@ float getGoalAxis(uint32_t id);
 void sendStopCommand();
 bool sendCommand(const interface_opdracht::moveGoal& goal);
 std::vector<Axis>& getAxis();
+
+bool checkMoveValid(uint8_t id, float position, uint64_t time);
 protected:
 
 private:

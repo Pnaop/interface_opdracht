@@ -9,12 +9,13 @@
 
 RobotLD::RobotLD()//:serial(ioservice,USBPORT)
 {
-    axis.push_back(Axis(BASE_ROTATION, -90, 90, OBASE_ROTATION, -90,0, false));
-    axis.push_back(Axis{SHOULDER, -30, 90, OSHOULDER, 0, 0, false});
-    axis.push_back(Axis{ELBOW, 0, 135, OELBOW, 0, 0, true});
-    axis.push_back(Axis{WRIST, -90, 90, OWRIST, 0, 0, false});
-    axis.push_back(Axis{AXIS::GRIPPER, -10, 80, OGRIPPER, 0, 0, false});
-    axis.push_back(Axis{AXIS::WRIST_ROTATION, -90, 90, OWRIST_ROTATION, 0, 0, false});
+    // Initialize all the axes, every axis has it's own config.
+    axis.push_back(Axis(BASE_ROTATION, -90, 90, OBASE_ROTATION, -90,0, false, 220));
+    axis.push_back(Axis(SHOULDER, -30, 90, OSHOULDER, 0, 0, false, 190));
+    axis.push_back(Axis(ELBOW, 0, 135, OELBOW, 0, 0, true, 280));
+    axis.push_back(Axis(WRIST, -90, 90, OWRIST, 0, 0, false, 240));
+    axis.push_back(Axis(GRIPPER, -10, 80, OGRIPPER, 0, 0, false, 140));
+    axis.push_back(Axis(WRIST_ROTATION, -90, 90, OWRIST_ROTATION, 0, 0, false, 210));
 
     BAUD = 112500;
   /*  serial.set_option(boost::asio::serial_port_base::baud_rate(BAUD));
@@ -132,4 +133,33 @@ void RobotLD::sendSerial(std::string &text)
     boost::asio::write(serial, b.data());
     os.flush();*/
     
+}
+
+bool RobotLD::checkMoveValid(uint8_t id, float position, uint64_t time)
+{
+  // If the boolean is still true after the test, the move is valid.
+  bool result = true;
+
+  // Get the axis for the move.
+  Axis a = axis.at(id);
+
+  // Convert the goal to check that it is valid.
+  float positionConverted = convertDegrees(position, a);
+
+  // Check if the position is valid.
+  if (positionConverted < 0)
+  {
+      result = false;
+  }
+  
+  // Calculate the distance of the movement.
+  float movement = fabs(position - a.getGoal());
+
+  // Predict if the time is physically possible.
+  if((movement / 60) * a.getMaxSpeed() > time)
+  {
+      result = false;
+  }
+
+  return result;
 }

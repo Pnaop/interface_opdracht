@@ -1,7 +1,7 @@
 #include "../include/Axis.h"
 
-Axis::Axis(AXIS id,float minDegrees,float maxDegrees,float offset , float goal,float step,bool special):id(id),minDegrees(minDegrees),maxDegrees(maxDegrees)
-,offset(offset),goal(goal),step(step),special(special)
+Axis::Axis(AXIS id, float minDegrees, float maxDegrees, float offset, float goal, float step, bool special, uint16_t aMaxSpeed):id(id), minDegrees(minDegrees), maxDegrees(maxDegrees)
+, offset(offset), goal(goal), step(step), special(special), cMaxSpeed(aMaxSpeed)
 {
 
 }
@@ -40,6 +40,11 @@ float Axis::getStep()
 bool Axis::getSpecial()
 {
     return this->special;
+}
+
+uint16_t Axis::getMaxSpeed()
+{
+    return this->cMaxSpeed;
 }
 
     //setters

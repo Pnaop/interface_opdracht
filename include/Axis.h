@@ -7,9 +7,9 @@
 class Axis
 {
     public:
-    Axis(AXIS id,float minDegrees,float maxDegrees,float offset , float goal,float step,bool special);
+    Axis(AXIS id, float minDegrees, float maxDegrees, float offset, float goal, float step, bool special, uint16_t aMaxSpeed);
     
-    /// get functies
+    /// Getters
     AXIS getId();
     float getMinDegrees();
     float getMaxDegrees();
@@ -17,24 +17,27 @@ class Axis
     float getGoal();
     float getStep();
     bool getSpecial();
+    uint16_t getMaxSpeed();
 
-    //setters
+    // Setters
     void setGoal(float position);
     void setStep(float nStep);
 
     private:
-    // ID OF AX
+    // IS of the axis.
     AXIS id;
-    //SAFETY AX in DEGREES
+    // Limits of axis in degrees.
     float minDegrees;
     float maxDegrees;
     // THE OFFSET
     int32_t offset;
-    // current goal off axis
+    // Current goal of axis.
     float goal;
-    // amount the ax need to make next step
+    // Amount the ax need to make next step.
     float step;
-    // has a special middlepoint
+    // Has a special middlepoint.
     bool special;
+    // The maximum speed of the servo in ms/60°.
+    const uint16_t cMaxSpeed;
 };
 #endif /* AXIS_H */

@@ -21,6 +21,8 @@ private:
   ros::ServiceServer server_service;
   interface_opdracht::moveGoal moveToReady();
   interface_opdracht::moveGoal moveToUp();
+
+  // Low Level Driver
   RobotLD arm; 
 public:
     explicit HighLevelDriver(std::string& rosNodeName);

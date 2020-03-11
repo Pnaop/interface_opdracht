@@ -88,7 +88,7 @@ interface_opdracht::moveGoal HighLevelDriver::moveToPark()
   tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::SHOULDER)));
   tempGoal.move_to.push_back(50);
   tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::ELBOW)));
-  tempGoal.move_to.push_back(135);
+  tempGoal.move_to.push_back(138);
   tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::WRIST)));
   tempGoal.move_to.push_back(-90);
   tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::WRIST_ROTATION)));
@@ -114,10 +114,19 @@ interface_opdracht::moveGoal HighLevelDriver::moveToUp()
   tempGoal.time = 0;
   return tempGoal;
 }
-   bool HighLevelDriver::validateGoal(const interface_opdracht::moveGoalConstPtr &goal)
-   {
-       return true;
-   }
+
+bool HighLevelDriver::validateGoal(const interface_opdracht::moveGoalConstPtr &goal)
+{
+  bool result = true;
+
+  for(uint8_t i = 0; i < goal->axis.size(); ++i)
+  {
+    result = arm.checkMoveValid(goal->axis[int(i)], goal->move_to[goal->axis[i]], goal->time);
+  } 
+
+  return result;
+}
+
 void HighLevelDriver::addEvent(Event& a)
 {
     this->events.push_back(a);
@@ -137,15 +146,17 @@ interface_opdracht::moveGoal& HighLevelDriver::getCurrentGoal()
 }
 void HighLevelDriver::executeCB(const interface_opdracht::moveGoalConstPtr &goal)
 {
-    parseCurrentGoal(goal);
-    Event ev(EVENT_NEW_GOAL);
-    addEvent(ev);
-    while (as_.isActive()){};
+  parseCurrentGoal(goal);
+  Event ev(EVENT_NEW_GOAL);
+  addEvent(ev);
+  while (as_.isActive()){};
 }
+
 actionlib::SimpleActionServer<interface_opdracht::moveAction>& HighLevelDriver::getActionServer()
 {
-    return as_;
+  return as_;
 }
+
 bool HighLevelDriver::emergency(interface_opdracht::emergency::Request &reg, interface_opdracht::emergency::Response &res)
 {
   if (reg.error)
