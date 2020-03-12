@@ -103,8 +103,8 @@ float StateMove::calculatePosition(float startPosition,float goal,double current
 {
             float ratioProgress = currentTime/endTime;
             
-            float different = goal - startPosition;
-            float returnValue = startPosition + (different * ratioProgress);
+            float distance = goal - startPosition;
+            float returnValue = startPosition + (distance * ratioProgress);
             return returnValue;
 }
 
