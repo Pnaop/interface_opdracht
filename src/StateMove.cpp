@@ -9,9 +9,7 @@ StateMove::StateMove(HighLevelDriver& context):context(context)
 
 StateMove::~StateMove()
 {
-
 }
-
 
 void StateMove::handleEvent(Event& event)
 {
@@ -48,20 +46,19 @@ bool StateMove::doActivity()
     
     actionlib::SimpleActionServer<interface_opdracht::moveAction>& as_ = this->context.getActionServer();
     interface_opdracht::moveFeedback& feedback_ = context.getFeedback();
-     if(as_.isPreemptRequested() || !ros::ok())
-     {
-       RobotLD& arm = context.getArm();
-       arm.sendStopCommand();
-       setcurrentPositionsAsGoal(arm.getAxis(),std::chrono::duration<double,std::milli>(std::chrono::high_resolution_clock::now() - start).count(),context.getCurrentGoal().time);
-       feedback_.sequence.clear();         
-       as_.setPreempted();
-       Event e(EVENT_NEW_GOAL);
-       context.addEvent(e);
-     
-     }
-     else
-     {
-         if(std::chrono::duration<double,std::milli>(std::chrono::high_resolution_clock::now() - start).count() >= this->context.getCurrentGoal().time)
+    if(as_.isPreemptRequested() || !ros::ok())
+    {
+        RobotLD& arm = context.getArm();
+        arm.sendStopCommand();
+        setcurrentPositionsAsGoal(arm.getAxis(),std::chrono::duration<double,std::milli>(std::chrono::high_resolution_clock::now() - start).count(),context.getCurrentGoal().time);
+        feedback_.sequence.clear();         
+        as_.setPreempted();
+        Event e(EVENT_NEW_GOAL);
+        context.addEvent(e);
+    }
+    else
+    {
+        if(std::chrono::duration<double,std::milli>(std::chrono::high_resolution_clock::now() - start).count() >= this->context.getCurrentGoal().time)
         {
             interface_opdracht::moveResult& result_ = context.getResult();
             result_.sequence = feedback_.sequence;
@@ -80,6 +77,7 @@ bool StateMove::doActivity()
     
     return true;
 }
+
 void StateMove::setcurrentPositionsAsGoal(std::vector<Axis>& axis,double currentTime,double endTime)
 {
     for(uint8_t i = 0; i < axis.size(); ++i)
@@ -87,6 +85,7 @@ void StateMove::setcurrentPositionsAsGoal(std::vector<Axis>& axis,double current
         axis[i].setGoal(calculatePosition(startPositions[i],axis[i].getGoal(),currentTime,endTime));
     }
 }
+
 void StateMove::saveStartPositions(std::vector<Axis>& axis)
 {
     startPositions.clear();
@@ -95,17 +94,18 @@ void StateMove::saveStartPositions(std::vector<Axis>& axis)
        startPositions.push_back(axis[i].getGoal());
     }
 }
+
 float StateMove::calculatePosition(float startPosition,float goal,double currentTime,double endTime)
 {
-            float ratioProgress = currentTime/endTime;
+    float ratioProgress = currentTime/endTime;
             
-            float distance = goal - startPosition;
-            float returnValue = startPosition + (distance * ratioProgress);
-            return returnValue;
+    float distance = goal - startPosition;
+    float returnValue = startPosition + (distance * ratioProgress);
+
+    return returnValue;
 }
 
 void StateMove::exit()
 {
-
     std::cout << "exit Move" << std::endl;
 }

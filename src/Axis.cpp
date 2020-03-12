@@ -47,7 +47,7 @@ uint16_t Axis::getMaxSpeed()
     return this->cMaxSpeed;
 }
 
-    //setters
+//setters
 void Axis::setGoal(float goal)
 {
     this->goal = goal;

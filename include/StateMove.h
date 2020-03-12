@@ -5,10 +5,13 @@
 #include "HighLevelDriver.h"
 #include "State.h"
 
+/**
+ * @class StateMove
+ * @brief Derives from State and implements the functionalities for moving.
+ */
 class StateMove : public State
 {
 private:
-
     std::chrono::high_resolution_clock::time_point start;/* data */
     HighLevelDriver& context;
     std::vector<float> startPositions;

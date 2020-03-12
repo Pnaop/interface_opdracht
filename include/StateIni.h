@@ -3,6 +3,11 @@
 #define STATEINI_H
 #include "State.h"
 #include "HighLevelDriver.h"
+
+/**
+ * @class StateIni
+ * @brief Derives from State and implements the functionalities for initialisation.
+ */
 class StateIni : public State
 {
 private:

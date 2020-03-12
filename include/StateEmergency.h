@@ -7,7 +7,7 @@
 class StateEmergency : public State
 {
 private:
-    /* data */
+    /// Reference to highlevelDriver.
     HighLevelDriver& context;
     
 

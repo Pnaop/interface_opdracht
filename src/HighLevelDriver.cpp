@@ -35,7 +35,7 @@ void HighLevelDriver::setCurrentState(const std::shared_ptr<State>& nState)
 
 RobotLD& HighLevelDriver::getArm()
 {
-    return arm;
+  return arm;
 }
 
 void HighLevelDriver::parseCurrentGoal(const interface_opdracht::moveGoalConstPtr &goal)
@@ -74,6 +74,7 @@ void HighLevelDriver::parseCurrentGoal(const interface_opdracht::moveGoalConstPt
 interface_opdracht::moveGoal HighLevelDriver::moveToReady()
 {
   interface_opdracht::moveGoal tempGoal;
+
   tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::BASE_ROTATION)));
   tempGoal.move_to.push_back(0);
   tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::SHOULDER)));

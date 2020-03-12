@@ -6,6 +6,11 @@ enum EVENT_TYPE{
     EVENT_GOAL_DONE,
     EVENT_EMERGENCY
 };
+
+/**
+ * @class Event
+ * @brief The class that holds all data regarding an event.
+ */
 class Event
 {
 public:

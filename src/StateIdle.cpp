@@ -6,14 +6,13 @@
 StateIdle::StateIdle(HighLevelDriver& context):context(context)
 {
 }
+
 StateIdle::~StateIdle()
 {
-
 }
 
 void StateIdle::handleEvent(Event& event)
 {
-    
     switch (event.getEventType())
     {
         case EVENT_NEW_GOAL:
@@ -44,6 +43,5 @@ bool StateIdle::doActivity()
 
 void StateIdle::exit()
 {
-
     std::cout << "exit Idle" << std::endl;
 }

@@ -4,10 +4,12 @@ Event::Event(EVENT_TYPE eventType):eventType(eventType)
 {
 
 }
+
 Event::~Event()
 {
 
 }
+
 EVENT_TYPE Event::getEventType()
 {
     return eventType;

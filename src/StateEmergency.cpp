@@ -4,9 +4,9 @@
 StateEmergency::StateEmergency(HighLevelDriver& context):context(context)
 {
 }
+
 StateEmergency::~StateEmergency()
 {
-
 }
 
 void StateEmergency::handleEvent(Event& event)

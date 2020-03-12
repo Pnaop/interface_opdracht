@@ -8,9 +8,9 @@ StateIni::StateIni(HighLevelDriver& context):context(context)
 }
 
 StateIni::~StateIni()
-{
-    
+{ 
 }
+
 void StateIni::handleEvent(Event& event)
 {
    
@@ -29,6 +29,7 @@ void StateIni::handleEvent(Event& event)
     }
     
 }
+
 void StateIni::entry()
 {
     ROS_INFO("STATE: INI");

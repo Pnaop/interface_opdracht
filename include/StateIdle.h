@@ -4,6 +4,10 @@
 #include "HighLevelDriver.h"
 #include "State.h"
 
+/**
+ * @class StateIdle
+ * @brief Derives from State.
+ */
 class StateIdle : public State
 {
 private:

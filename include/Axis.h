@@ -4,9 +4,14 @@
 #include <cstdint>
 #include "EnumAxis.h"
 
+/**
+ * @class Axis
+ * @brief Holds the relevant data for every axis.
+ */
 class Axis
 {
     public:
+    /// Constructor
     Axis(AXIS id, float minDegrees, float maxDegrees, float offset, float goal, float step, bool special, uint16_t aMaxSpeed);
     
     /// Getters

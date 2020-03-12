@@ -4,6 +4,11 @@
 #include <memory>
 #include <vector>
 #include "State.h"
+
+/**
+ * @class Context
+ * @brief Interface for the states.
+ */
 class Context
 {
 protected:
