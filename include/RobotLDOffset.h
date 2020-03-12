@@ -1,8 +1,8 @@
 //#define ROBOT1
-//#define ROBOT2
-#ifndef ROBOT3
-#define ROBOT3
-#endif
+#define ROBOT2
+//#ifndef ROBOT3
+//#define ROBOT3
+//#endif
 //#define ROBOT4
 //#define ROBOT5
 

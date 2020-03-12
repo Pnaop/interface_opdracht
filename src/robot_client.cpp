@@ -23,7 +23,7 @@ public:
     goal.modeType = MODES::PROGRAM_UP;
     goal.axis.push_back(std::stoi(std::to_string(AXIS::BASE_ROTATION)));
     goal.move_to.push_back(10);
-    goal.time = 4000;
+    goal.time = 2000;
     this->doStuff(goal);
     ac.waitForResult();
     goal.modeType = MODES::PROGRAM_READY;
@@ -99,10 +99,11 @@ public:
     /// goals list verzenden
     interface_opdracht::emergency srv;
     srv.request.error = true;
-    if (!client.call(srv))
+    /*if (!client.call(srv))
     {
       ROS_ERROR("Er ging iets fout bij het aanroepen van emergency");
     }
+    */
     ROS_INFO("DRUK ENTER VOOR VERDER TE GAAN.");
     std::getline(std::cin, line);
 
@@ -142,7 +143,7 @@ public:
   // Called every time feedback is received for the goal
   void feedbackCb(const interface_opdracht::moveFeedbackConstPtr &feedback)
   {
-    ROS_INFO("Got Feedback of length %s",std::to_string(feedback->sequence[feedback->sequence.size()-1]).c_str());
+    ROS_INFO("Time: %s",std::to_string(feedback->sequence[feedback->sequence.size()-1]).c_str());
   }
 
 
