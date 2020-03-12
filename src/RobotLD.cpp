@@ -18,7 +18,7 @@ RobotLD::RobotLD()//:serial(ioservice,USBPORT)
     axis.push_back(Axis(GRIPPER, -10, 80, OGRIPPER, 0, 0, false, 140));
     axis.push_back(Axis(WRIST_ROTATION, -90, 90, OWRIST_ROTATION, 0, 0, false, 210));
 
-    BAUD = 112500; // 115200?
+    BAUD = 115200;
   /*  serial.set_option(boost::asio::serial_port_base::baud_rate(BAUD));
     serial.set_option(boost::asio::serial_port::flow_control(boost::asio::serial_port::flow_control::none));
     serial.set_option(boost::asio::serial_port::parity(boost::asio::serial_port::parity::none));
@@ -162,7 +162,7 @@ bool RobotLD::checkMoveValid(uint8_t id, float position, uint64_t time)
   // Predict if the time is physically possible.
   if(minimumDuration > time)
   {
-      ROS_WARN("QoS­Warning: requested time not achievable, expected duration: %s ms", std::to_string(int(minimumDuration)).c_str());
+      ROS_WARN("QoS­-Warning: requested time not achievable, expected duration: %s ms", std::to_string(int(minimumDuration)).c_str());
       result = false; // TODO Move the arm anyway?
   }
 
