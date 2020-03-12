@@ -5,17 +5,13 @@
 
 StateMove::StateMove(HighLevelDriver& context):context(context)
 {
-    id = STATES::MOVE;
 }
 
 StateMove::~StateMove()
 {
 
 }
-STATES StateMove::getStateId()
-{
-      return id;
-}
+
 
 void StateMove::handleEvent(Event& event)
 {

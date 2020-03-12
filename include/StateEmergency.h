@@ -15,7 +15,6 @@ public:
     void entry();
     bool doActivity();
     void exit();
-    STATES getStateId();
     void handleEvent(Event& event);
    explicit StateEmergency(HighLevelDriver& context);
     ~StateEmergency();

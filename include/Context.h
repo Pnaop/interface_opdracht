@@ -12,7 +12,11 @@ protected:
     std::vector<Event> events;
     std::shared_ptr<State> currentState;
 
-public:
+public: 
+    /**
+    *   @brief function that sets the currentState
+    *   @Param nState shared_ptr of the class State
+    **/
     virtual void setCurrentState(const std::shared_ptr<State>& nState)=0;
 
   

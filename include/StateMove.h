@@ -20,7 +20,6 @@ public:
     bool doActivity();
     void exit();
     void handleEvent(Event& event);
-    STATES getStateId();
    explicit  StateMove(HighLevelDriver& context);
     ~StateMove();
 };

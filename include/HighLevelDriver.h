@@ -52,21 +52,40 @@ public:
   interface_opdracht::moveResult& getResult();
   actionlib::SimpleActionServer<interface_opdracht::moveAction>& getActionServer();
 
-  /// Predefined message to move to Park position.
+  /** @brief Predefined message to move to Park position.
+   * @return moveGoal - converted goal for the action
+   **/
   interface_opdracht::moveGoal moveToPark();
-  /// Handles the request so that the message is parsed correctly.
+  /**
+   * @brief Handles the request so that the message is parsed correctly.
+  ** @param goal const moveGoalConstPtr to parse 
+  **/
   void parseCurrentGoal(const interface_opdracht::moveGoalConstPtr &goal);
-  /// Checks whether the requested positions are valid.
+  /**
+  * @brief Checks whether the requested positions are valid.
+  * @param goal const moveGoalConstPtr to validate 
+  * @return bool - is the goal valid
+  **/ 
   bool validateGoal(const interface_opdracht::moveGoalConstPtr &goal);
-  /// Immediatly starts emergency protocol.
+  /** @brief function that will be called by the service emergency
+   * @param  req emergency servicerequest
+   * @param res emergency serviceresponse
+   * @return bool - is the requesthandled 
+   **/ 
   bool emergency(interface_opdracht::emergency::Request &reg , interface_opdracht::emergency::Response &res);
-  /// Callback for Low Level Driver.
+  /** @brief callback execute for rosAction
+  * @param goal const moveGoalConstPtr to set the goal for the action 
+  **/
   void executeCB(const interface_opdracht::moveGoalConstPtr &goal);
   /// State transition.
   void setCurrentState(const std::shared_ptr<State>& nState);
-  /// Event transition.
+  /** @brief adds a Event  to the event array.
+   *  @param event The event that needs to be triggered   
+   **/
   void addEvent(Event& event);
-  /// Run the statemachine.
+  /** @brief Run the statemachine.
+   *  
+   * */
   void run();
 };
 #endif /* HIGHLEVELDRIVER_H */

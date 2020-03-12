@@ -5,15 +5,10 @@
 
 StateIdle::StateIdle(HighLevelDriver& context):context(context)
 {
-    id = STATES::IDLE;
 }
 StateIdle::~StateIdle()
 {
 
-}
-STATES StateIdle::getStateId()
-{
-      return id;
 }
 
 void StateIdle::handleEvent(Event& event)

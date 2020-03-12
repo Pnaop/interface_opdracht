@@ -5,18 +5,12 @@
 
 StateIni::StateIni(HighLevelDriver& context):context(context)
 {
-    id = STATES::INI;
 }
 
 StateIni::~StateIni()
 {
     
 }
-STATES StateIni::getStateId()
-{
-      return id;
-}
-
 void StateIni::handleEvent(Event& event)
 {
    

@@ -22,7 +22,7 @@ public:
     interface_opdracht::moveGoal goal;
     goal.modeType = MODES::PROGRAM_UP;
     goal.axis.push_back(std::stoi(std::to_string(AXIS::BASE_ROTATION)));
-    goal.move_to.push_back(0);
+    goal.move_to.push_back(10);
     goal.time = 4000;
     this->doStuff(goal);
     ac.waitForResult();

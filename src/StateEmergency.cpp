@@ -3,15 +3,10 @@
 
 StateEmergency::StateEmergency(HighLevelDriver& context):context(context)
 {
-    id = STATES::EMERGENCY;
 }
 StateEmergency::~StateEmergency()
 {
 
-}
-STATES StateEmergency::getStateId()
-{
-      return id;
 }
 
 void StateEmergency::handleEvent(Event& event)
