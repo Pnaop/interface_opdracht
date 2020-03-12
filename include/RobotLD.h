@@ -52,7 +52,7 @@ private:
   **/
   boost::asio::io_service ioservice;
   /// @brief serial the serial of the usb connection 
-  //   boost::asio::serial_port serial;
+     boost::asio::serial_port serial;
   /// @brief baudrate of the serial connection
   uint32_t BAUD;
 

@@ -6,35 +6,35 @@
 #define ZEROPOINT 1500
 #define SPECIALZEROPOINT 500
 #define POINTDEGREES 11.11
-#define USBPORT "/dev/pts/5"
+#define USBPORT "/dev/ttyUSB0"
 
-RobotLD::RobotLD()//:serial(ioservice,USBPORT)
+RobotLD::RobotLD():serial(ioservice,USBPORT)
 {
     // Initialize all the axes, every axis has it's own config.
-    axis.push_back(Axis(BASE_ROTATION, -90, 90, OBASE_ROTATION, -90,0, false, 220));
-    axis.push_back(Axis(SHOULDER, -30, 90, OSHOULDER, 0, 0, false, 190));
-    axis.push_back(Axis(ELBOW, 0, 135, OELBOW, 0, 0, true, 280));
-    axis.push_back(Axis(WRIST, -90, 90, OWRIST, 0, 0, false, 240));
-    axis.push_back(Axis(GRIPPER, -10, 80, OGRIPPER, 0, 0, false, 140));
-    axis.push_back(Axis(WRIST_ROTATION, -90, 90, OWRIST_ROTATION, 0, 0, false, 210));
+    axis.push_back(Axis(BASE_ROTATION, -90, 90, OBASE_ROTATION, -90, false, 220));
+    axis.push_back(Axis(SHOULDER, -30, 90, OSHOULDER, 0, false, 190));
+    axis.push_back(Axis(ELBOW, 0, 135, OELBOW, 0, true, 280));
+    axis.push_back(Axis(WRIST, -90, 90, OWRIST, 0, false, 240));
+    axis.push_back(Axis(GRIPPER, -10, 80, OGRIPPER, 0, false, 140));
+    axis.push_back(Axis(WRIST_ROTATION, -90, 90, OWRIST_ROTATION, 0, false, 210));
 
     BAUD = 115200;
-  /*  serial.set_option(boost::asio::serial_port_base::baud_rate(BAUD));
+    serial.set_option(boost::asio::serial_port_base::baud_rate(BAUD));
     serial.set_option(boost::asio::serial_port::flow_control(boost::asio::serial_port::flow_control::none));
     serial.set_option(boost::asio::serial_port::parity(boost::asio::serial_port::parity::none));
     serial.set_option(boost::asio::serial_port::stop_bits(boost::asio::serial_port::stop_bits::one));
     serial.set_option(boost::asio::serial_port::character_size(boost::asio::serial_port::character_size(8)));
-    */setOffset();
+    setOffset();
 }
 
 RobotLD::~RobotLD()
 {
    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-/*
+
    if (serial.is_open())
    {
 	 	serial.close();
-   }*/
+   }
 }
 
 float RobotLD::convertDegrees(float degrees, Axis& ax)
@@ -127,12 +127,12 @@ void RobotLD::sendStopCommand()
 void RobotLD::sendSerial(std::string &text)
 {
     std::cout << text << std::endl;
-    /*
+    
     boost::asio::streambuf b;
     std::ostream os(&b);
     os << text << "\n\r";
     boost::asio::write(serial, b.data());
-    os.flush();*/
+    os.flush();
     
 }
 
