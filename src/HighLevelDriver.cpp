@@ -44,16 +44,7 @@ void HighLevelDriver::parseCurrentGoal(const interface_opdracht::moveGoalConstPt
   switch (goal->modeType)
   {
   case FREEMODE:
-    if (validateGoal(goal))
-    {
-      currentGoal = *goal;
-    }
-    else
-    {
-        /*invalid goal*/
-        Event e(EVENT_EMERGENCY);
-        addEvent(e);
-    }
+    currentGoal = *goal;
     break;
   case PROGRAM_UP:
     currentGoal = this->moveToUp();
@@ -106,7 +97,26 @@ interface_opdracht::moveGoal HighLevelDriver::moveToPark()
   tempGoal.time = 0;
   return tempGoal;
 }
-
+std::string HighLevelDriver::eventEnumToString(EVENT_TYPE e)
+{
+  std::string returnValue = "";
+  switch(e)
+  {
+    case EVENT_EMERGENCY:
+          returnValue = EVENTEMERGENCY;
+    break;
+    case EVENT_NEW_GOAL:
+          returnValue = EVENTNEWGOAL;
+    break;
+    case EVENT_GOAL_DONE:
+          returnValue = EVENTGOALDONE;
+    break;
+    default:
+          returnValue = EVENTINI;
+    break;
+  }
+  return returnValue;
+}
 interface_opdracht::moveGoal HighLevelDriver::moveToUp()
 {
   interface_opdracht::moveGoal tempGoal;
@@ -116,7 +126,7 @@ interface_opdracht::moveGoal HighLevelDriver::moveToUp()
   tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::SHOULDER)));
   tempGoal.move_to.push_back(2);
   tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::ELBOW)));
-  tempGoal.move_to.push_back(15);
+  tempGoal.move_to.push_back(17);
   tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::WRIST)));
   tempGoal.move_to.push_back(0);
   tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::WRIST_ROTATION)));
@@ -135,6 +145,10 @@ bool HighLevelDriver::validateGoal(const interface_opdracht::moveGoalConstPtr &g
   {
     /// Check if the goal for each axis is valid.
     result = arm.checkMoveValid(goal->axis[int(i)], goal->move_to[goal->axis[i]], goal->time);
+    if(!result)
+    {
+      return result;
+    }
   } 
 
   /// True when all goals are valid.
@@ -164,8 +178,17 @@ interface_opdracht::moveGoal& HighLevelDriver::getCurrentGoal()
 void HighLevelDriver::executeCB(const interface_opdracht::moveGoalConstPtr &goal)
 {
   parseCurrentGoal(goal);
-  Event ev(EVENT_NEW_GOAL);
-  addEvent(ev);
+  if(validateGoal(goal))
+  {
+      Event ev(EVENT_NEW_GOAL);
+      addEvent(ev);
+  }
+  else
+  {     /*invalid goal*/
+    Event e(EVENT_EMERGENCY);
+    addEvent(e);
+  }
+
   while (as_.isActive()){};
 }
 
@@ -192,6 +215,7 @@ void HighLevelDriver::run()
   {
     if(!events.empty())
     {
+      ROS_DEBUG("EVENT: {%s}" ,eventEnumToString(events[0].getEventType()).c_str());
       currentState->handleEvent(events[0]);
       events.erase(events.begin());
     }

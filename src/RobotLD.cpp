@@ -126,14 +126,11 @@ void RobotLD::sendStopCommand()
 
 void RobotLD::sendSerial(std::string &text)
 {
-    std::cout << text << std::endl;
-    
     boost::asio::streambuf b;
     std::ostream os(&b);
     os << text << "\n\r";
     boost::asio::write(serial, b.data());
     os.flush();
-    
 }
 
 bool RobotLD::checkMoveValid(uint8_t id, float position, uint64_t time)
@@ -162,7 +159,7 @@ bool RobotLD::checkMoveValid(uint8_t id, float position, uint64_t time)
   // Predict if the time is physically possible.
   if(minimumDuration > time)
   {
-      ROS_WARN("QoS­-Warning: requested time not achievable, expected duration: %s ms", std::to_string(int(minimumDuration)).c_str());
+      ROS_WARN("QoS­ Warning: requested time not achievable, expected duration: %s ms", std::to_string(int(minimumDuration)).c_str());
       result = false; // TODO Move the arm anyway?
   }
 

@@ -23,9 +23,9 @@ public:
     goal.modeType = MODES::PROGRAM_UP;
     goal.axis.push_back(std::stoi(std::to_string(AXIS::BASE_ROTATION)));
     goal.move_to.push_back(10);
-    goal.time = 2000;
+    goal.time = 4000;
     this->doStuff(goal);
-    ac.waitForResult();
+    ac.waitForResult(ros::Duration(2));
     goal.modeType = MODES::PROGRAM_READY;
     this->doStuff(goal);
     ac.waitForResult();

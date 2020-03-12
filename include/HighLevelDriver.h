@@ -77,6 +77,8 @@ public:
    **/ 
   bool emergency(interface_opdracht::emergency::Request &reg , interface_opdracht::emergency::Response &res);
 
+  std::string eventEnumToString(EVENT_TYPE e);
+
   /** @brief callback execute for rosAction
   * @param goal const moveGoalConstPtr to set the goal for the action 
   **/
