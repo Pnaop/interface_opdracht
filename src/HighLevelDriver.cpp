@@ -97,7 +97,7 @@ interface_opdracht::moveGoal HighLevelDriver::moveToPark()
   tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::SHOULDER)));
   tempGoal.move_to.push_back(50);
   tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::ELBOW)));
-  tempGoal.move_to.push_back(138);
+  tempGoal.move_to.push_back(135);
   tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::WRIST)));
   tempGoal.move_to.push_back(-90);
   tempGoal.axis.push_back(std::stoi(std::to_string(AXIS::WRIST_ROTATION)));

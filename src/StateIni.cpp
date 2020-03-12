@@ -39,8 +39,7 @@ void StateIni::entry()
 {
     ROS_INFO("STATE: INI");
     interface_opdracht::moveGoal goal = this->context.moveToPark();
-    goal.time = 1;
-        
+    goal.time = 1000;
     this->context.getArm().sendCommand(goal);
 
     Event a(EVENT_INI_DONE);
