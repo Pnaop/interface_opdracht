@@ -1,6 +1,9 @@
 # interface_ opdracht
 De uitwerking van de Interface Opdracht voor WoR World van Hemmy en Jari.
 
+# BELANGRIJK
+Zet de juiste usb-poortnaam van de robot in de document 'RobotLD.cpp' op regel 9.
+
 ## installatie
 Om de software te bouwen:
 * Clone de repository in CATKIN_WORKSPACE*/src
