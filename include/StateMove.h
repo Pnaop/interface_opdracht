@@ -17,7 +17,7 @@ private:
     std::vector<float> startPositions;
     void setcurrentPositionsAsGoal(std::vector<Axis>& axis,double currentTime,double endTime);
     void saveStartPositions(std::vector<Axis>& axis);
-    float calculatePosition(float startPosition,float goal,double currentTime,double endTime);
+  static float calculatePosition(float startPosition,float goal,double currentTime,double endTime);
 public:
     void entry();
     bool doActivity();

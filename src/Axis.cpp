@@ -6,37 +6,37 @@ Axis::Axis(AXIS id, float minDegrees, float maxDegrees, float offset, float goal
 
 }
 
-AXIS Axis::getId()
+AXIS Axis::getId() const
 {
     return this->id;
 }
 
-float Axis::getMinDegrees()
+float Axis::getMinDegrees() const
 {
     return this->minDegrees;
 }
 
-float Axis::getMaxDegrees()
+float Axis::getMaxDegrees() const
 {
     return this->maxDegrees;
 }
 
-int32_t Axis::getOffset()
+int32_t Axis::getOffset() const
 {
     return this->offset;
 }
 
-float Axis::getGoal()
+float Axis::getGoal() const
 {
 
     return this->goal;
 }
-bool Axis::getSpecial()
+bool Axis::getSpecial() const
 {
     return this->special;
 }
 
-uint16_t Axis::getMaxSpeed()
+uint16_t Axis::getMaxSpeed() const
 {
     return this->cMaxSpeed;
 }

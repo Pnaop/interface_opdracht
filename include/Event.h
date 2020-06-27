@@ -21,6 +21,6 @@ public:
     explicit Event(EVENT_TYPE eventType);
     virtual ~Event();
     EVENT_TYPE eventType;
-    EVENT_TYPE getEventType();
+    EVENT_TYPE getEventType() const;
 };
 #endif  /* EVENT_H */

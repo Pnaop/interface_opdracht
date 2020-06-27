@@ -17,12 +17,7 @@ class RobotLD
 public:
   RobotLD();
   ~RobotLD();
-  /**
-   * @brief Get the current goal of the given axis
-   * @param id - index of the axis
-   * @return float - goal of the axis
-   **/
-  float getGoalAxis(uint32_t id);
+ 
   /** @brief send stopcommand to the robot
   *
   **/
@@ -65,7 +60,7 @@ private:
    * @convert degrees into pwm
    * @return the pwm in float value
    **/
-  float convertDegrees(float degrees,Axis& ax);
+ static float convertDegrees(float degrees,Axis& ax);
 
   /**
    * @brief convert given time into converted time (what the robot needs)
@@ -73,7 +68,7 @@ private:
    * @return the converted time
    **/
 
-  uint64_t convertTime(uint64_t milliseconds);
+ uint64_t convertTime(uint64_t milliseconds);
 
   /// vector of the axis
   std::vector<Axis> axis;

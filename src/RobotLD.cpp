@@ -70,11 +70,6 @@ uint64_t RobotLD::convertTime(uint64_t milliseconds)
     }
 }
 
-float RobotLD::getGoalAxis(uint32_t id)
-{
-    return axis[id].getGoal();
-}
-
 std::vector<Axis> &RobotLD::getAxis()
 {
     return axis;

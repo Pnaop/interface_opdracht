@@ -10,7 +10,7 @@ Event::~Event()
 
 }
 
-EVENT_TYPE Event::getEventType()
+EVENT_TYPE Event::getEventType() const
 {
     return eventType;
 }

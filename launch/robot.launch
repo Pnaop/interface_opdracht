@@ -1,0 +1,4 @@
+<launch>
+  <node name="robot_interface" pkg="interface_opdracht" type="robot_interface" args="" />
+  <node name="robot_interface_client" pkg="interface_opdracht" type="robot_interface_client" args="" />
+</launch>

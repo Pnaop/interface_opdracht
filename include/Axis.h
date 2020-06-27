@@ -14,16 +14,16 @@ class Axis
     Axis(AXIS id, float minDegrees, float maxDegrees, float offset, float goal, bool special, uint16_t aMaxSpeed);
     
     /// Getters
-    AXIS getId();
-    float getMinDegrees();
-    float getMaxDegrees();
-    int32_t getOffset();
-    float getGoal();
-    bool getSpecial();
-    uint16_t getMaxSpeed();
+    AXIS getId() const;
+    float getMinDegrees() const;
+    float getMaxDegrees() const;
+    int32_t getOffset() const;
+    float getGoal() const;
+    bool getSpecial() const;
+    uint16_t getMaxSpeed() const;
 
     // Setters
-    void setGoal(float position);
+    void setGoal(float goal);
 
     private:
     // IS of the axis.

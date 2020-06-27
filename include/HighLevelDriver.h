@@ -33,9 +33,9 @@ private:
   ros::ServiceServer server_service;
 
   /// Predefined message to move to Ready position.
-  interface_opdracht::moveGoal moveToReady();
+ static interface_opdracht::moveGoal moveToReady();
   /// Predefined message to move to StraightUp position.
-  interface_opdracht::moveGoal moveToUp();
+ static interface_opdracht::moveGoal moveToUp();
 
   /// Low Level Driver
   RobotLD arm; 
@@ -55,7 +55,7 @@ public:
   /** @brief Predefined message to move to Park position.
    * @return moveGoal - converted goal for the action
    **/
-  interface_opdracht::moveGoal moveToPark();
+static interface_opdracht::moveGoal moveToPark();
 
   /**
    * @brief Handles the request so that the message is parsed correctly.
@@ -77,7 +77,7 @@ public:
    **/ 
   bool emergency(interface_opdracht::emergency::Request &reg , interface_opdracht::emergency::Response &res);
 
-  std::string eventEnumToString(EVENT_TYPE e);
+  static std::string eventEnumToString(EVENT_TYPE e);
 
   /** @brief callback execute for rosAction
   * @param goal const moveGoalConstPtr to set the goal for the action 

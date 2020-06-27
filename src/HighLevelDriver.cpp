@@ -155,9 +155,9 @@ bool HighLevelDriver::validateGoal(const interface_opdracht::moveGoalConstPtr &g
   return result;
 }
 
-void HighLevelDriver::addEvent(Event& a)
+void HighLevelDriver::addEvent(Event& event)
 {
-    this->events.push_back(a);
+    this->events.push_back(event);
 }
 
 interface_opdracht::moveFeedback& HighLevelDriver::getFeedback()
