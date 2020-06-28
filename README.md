@@ -19,8 +19,8 @@ Voer het command "**socat -d -d pty,echo=0,raw,b115200,parenb=0,cs8,cstopb=0 pty
 * 1 resulteert in twee stopbits
 
 ## Terminal 2: Stuur de binnenkomende berichten naar de terminal
-Voer het command "**cat < /dev/pts/2**" uit. Om de command berichten binnen te krijgen. **Zet deze poort-naam ook in
-"RobotLD.cpp" op regel 9**.
+Voer het command "**cat < /dev/pts/2**" uit. Om de command berichten binnen te krijgen. **Zet de poortnaam dat onderaan staat in
+"RobotLD.cpp" op regel 9**. ("/dev/pts/3")
 
 ## Installatie
 Om de software te bouwen:

@@ -6,7 +6,7 @@
 #define ZEROPOINT 1500
 #define SPECIALZEROPOINT 500
 #define POINTDEGREES 11.11
-#define USBPORT "/dev/ttyUSB0"
+#define USBPORT "/dev/pts/5"
 
 RobotLD::RobotLD():serial(ioservice,USBPORT)
 {
